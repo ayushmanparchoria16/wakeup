@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wakeup AI Assistant - Overlay Interview Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            scroll-behavior: smooth;
+        }
+        .section-header {
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 8px;
+            margin-bottom: 3rem;
+            display: inline-block;
+        }
+        .icon {
+            filter: drop-shadow(0 0 5px #4CAF50);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-[#1a1a1a] bg-opacity-95 shadow-lg backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Brand -->
+                <a href="#" class="flex items-center space-x-2">
+                    <span class="text-3xl text-[#4CAF50] font-extrabold icon">🤖</span>
+                    <span class="text-xl font-bold text-white">Wakeup AI</span>
+                </a>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#product" class="text-gray-300 hover:text-[#4CAF50] px-3 py-2 text-sm font-medium transition duration-150 rounded-lg">Product</a>
+                    <a href="#pricing" class="text-gray-300 hover:text-[#4CAF50] px-3 py-2 text-sm font-medium transition duration-150 rounded-lg">Pricing</a>
+                    <a href="#download" class="text-gray-300 hover:text-[#4CAF50] px-3 py-2 text-sm font-medium transition duration-150 rounded-lg">Download</a>
+                    <a href="#terms" class="text-gray-300 hover:text-[#4CAF50] px-3 py-2 text-sm font-medium transition duration-150 rounded-lg">T&C</a>
+                    <a href="#contact" class="text-gray-300 hover:text-[#4CAF50] px-3 py-2 text-sm font-medium transition duration-150 rounded-lg">Contact</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <button id="menu-button" class="md:hidden text-gray-300 hover:text-white focus:outline-none" aria-label="Toggle Menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#1a1a1a] pb-3 px-2 pt-2 space-y-1 sm:px-3">
+            <a href="#product" class="text-gray-300 hover:text-[#4CAF50] block px-3 py-2 rounded-lg text-base font-medium">Product</a>
+            <a href="#pricing" class="text-gray-300 hover:text-[#4CAF50] block px-3 py-2 rounded-lg text-base font-medium">Pricing</a>
+            <a href="#download" class="text-gray-300 hover:text-[#4CAF50] block px-3 py-2 rounded-lg text-base font-medium">Download</a>
+            <a href="#terms" class="text-gray-300 hover:text-[#4CAF50] block px-3 py-2 rounded-lg text-base font-medium">T&C</a>
+            <a href="#contact" class="text-gray-300 hover:text-[#4CAF50] block px-3 py-2 rounded-lg text-base font-medium">Contact</a>
+        </div>
+    </nav>
+
+    <!-- 1. HERO / DOWNLOAD SECTION -->
+    <header id="download" class="pt-20 pb-20 sm:pt-32 sm:pb-32 text-center bg-gray-900 shadow-2xl">
+        <div class="max-w-5xl mx-auto px-4">
+            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-4">
+                <span class="text-white">Conquer Your Interview with</span> 
+                <span class="text-[#4CAF50] block mt-2">Wakeup AI Assistant</span>
+            </h1>
+            <p class="text-xl sm:text-2xl text-gray-400 mb-10 max-w-3xl mx-auto">
+                Real-time AI assistance as a discreet overlay. Get concise, expert answers instantly without breaking eye contact.
+            </p>
+            <div class="space-y-4 sm:space-y-0 sm:space-x-6">
+                <!-- Main Download CTA -->
+                <a href="#" class="inline-block py-3 px-8 text-lg font-bold text-[#1a1a1a] bg-[#4CAF50] rounded-xl shadow-lg hover:bg-[#66BB6A] transition duration-300 transform hover:scale-105 active:scale-95">
+                    ⬇️ Download Now (Windows)
+                </a>
+                <!-- Watch Demo Button -->
+                <a href="#product" class="inline-block py-3 px-8 text-lg font-medium text-white bg-gray-700 rounded-xl shadow-lg hover:bg-gray-600 transition duration-300 transform hover:scale-105 active:scale-95">
+                    Learn How It Works
+                </a>
+            </div>
+            <p class="text-sm text-gray-500 mt-6">Requires Windows OS and Python environment.</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- 2. PRODUCT DETAIL / FEATURES SECTION -->
+        <section id="product" class="py-20">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white section-header">Product Details & Features</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Feature List -->
+                <div class="space-y-8">
+                    <!-- Feature 1 -->
+                    <div class="flex items-start space-x-4 p-4 bg-[#2c2c2c] rounded-xl shadow-xl hover:shadow-2xl transition duration-300">
+                        <span class="text-3xl text-[#FFD700] flex-shrink-0">🎙️</span>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-1">Real-Time Transcription</h3>
+                            <p class="text-gray-400">Captures the interviewer's voice from 'Stereo Mix' or your mic, providing a continuous, editable question stream. Never miss a word.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="flex items-start space-x-4 p-4 bg-[#2c2c2c] rounded-xl shadow-xl hover:shadow-2xl transition duration-300">
+                        <span class="text-3xl text-[#3F51B5] flex-shrink-0">💬</span>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-1">Dual-Tier AI Answers (Gemini)</h3>
+                            <p class="text-gray-400">Trigger **Standard** (Enter/Tab) for short points, or **Detailed** (Ctrl+Enter) for comprehensive explanations on the same topic.</p>
+                        </div>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="flex items-start space-x-4 p-4 bg-[#2c2c2c] rounded-xl shadow-xl hover:shadow-2xl transition duration-300">
+                        <span class="text-3xl text-[#E53935] flex-shrink-0">🌁</span>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-1">Discreet Overlay & Hotkeys</h3>
+                            <p class="text-gray-400">Adjust window transparency or instantly **Hide/Restore (F1)**. Quickly **Toggle Audio Input (F2)** between your mic and system audio for clean interviewer capture.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mock Screenshot/Diagram -->
+                <div class="p-6 bg-gray-800 rounded-2xl shadow-inner max-w-lg mx-auto">
+                    <!-- Placeholder for a stylized, transparent window image -->
+                    <div class="text-center">
+                        <div class="relative bg-black bg-opacity-50 p-6 rounded-xl border border-[#4CAF50] shadow-2xl shadow-[#4CAF50]/40">
+                            <p class="text-gray-200 text-sm italic">Overlay View</p>
+                            <p class="mt-4 text-left text-lg font-semibold text-[#4CAF50]">Q: What is the difference between a process and a thread?</p>
+                            <ul class="mt-2 text-left text-sm space-y-1 text-white">
+                                <li>• Process: Independent program instance with its own memory space.</li>
+                                <li>• Thread: Smallest unit of CPU execution, sharing the parent process's memory.</li>
+                                <li>• Context: Switching processes is heavy; switching threads is light.</li>
+                            </ul>
+                            <div class="mt-4 text-xs text-right text-gray-500">
+                                🔑 Free Responses Left: 18/20
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. PRICING SECTION -->
+        <section id="pricing" class="py-20 border-t border-gray-800">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white section-header">Pricing Plans</h2>
+            
+            <div class="grid md:grid-cols-2 gap-10">
+                
+                <!-- Free Tier -->
+                <div class="bg-[#2c2c2c] p-8 rounded-2xl shadow-2xl border-2 border-gray-700 transition duration-300 hover:border-[#FFD700]">
+                    <h3 class="text-2xl font-bold text-white mb-2">Free Trial</h3>
+                    <p class="text-gray-400 mb-6">Test the core features and AI performance during your preparation.</p>
+                    
+                    <p class="text-4xl font-extrabold text-[#FFD700] mb-8">
+                        $0<span class="text-lg font-medium text-gray-400">/day</span>
+                    </p>
+                    
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-center space-x-2">✅ <span class="font-bold text-white">20 Responses</span> per day (Limit from app)</li>
+                        <li class="flex items-center space-x-2">✅ Standard and Detailed Answers</li>
+                        <li class="flex items-center space-x-2">✅ Basic Overlay Controls (F1/F2)</li>
+                        <li class="flex items-center space-x-2">❌ Occasional Licensing Checks</li>
+                        <li class="flex items-center space-x-2">❌ No Priority Support</li>
+                    </ul>
+                    
+                    <a href="#download" class="mt-10 block w-full text-center py-3 text-lg font-bold text-[#1a1a1a] bg-[#FFD700] rounded-xl hover:bg-[#FFE066] transition duration-300">
+                        Start Free
+                    </a>
+                </div>
+                
+                <!-- Pro Tier -->
+                <div class="bg-[#1a1a1a] p-8 rounded-2xl shadow-2xl border-4 border-[#4CAF50] transform scale-105">
+                    <h3 class="text-2xl font-bold text-[#4CAF50] mb-2">Pro License</h3>
+                    <p class="text-gray-400 mb-6">Unleash uninterrupted performance for the most critical interviews.</p>
+                    
+                    <p class="text-4xl font-extrabold text-[#4CAF50] mb-8">
+                        $XX<span class="text-lg font-medium text-gray-400">/month</span>
+                    </p>
+                    
+                    <ul class="space-y-3 text-gray-300">
+                        <li class="flex items-center space-x-2">⭐ <span class="font-bold text-white">Unlimited</span> Responses, Anytime</li>
+                        <li class="flex items-center space-x-2">⭐ Maximum AI Model Speed (Lower Latency)</li>
+                        <li class="flex items-center space-x-2">⭐ Max Readability (100% Opacity Toggle)</li>
+                        <li class="flex items-center space-x-2">⭐ Minimal Server Checks</li>
+                        <li class="flex items-center space-x-2">⭐ Priority Email Support</li>
+                    </ul>
+                    
+                    <a href="#contact" class="mt-10 block w-full text-center py-3 text-lg font-bold text-white bg-[#4CAF50] rounded-xl hover:bg-[#66BB6A] transition duration-300">
+                        Activate Pro License
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. TERMS AND CONDITIONS (T&C) SECTION -->
+        <section id="terms" class="py-20 border-t border-gray-800">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white section-header">Terms & Conditions (T&C)</h2>
+            <div class="p-6 bg-[#2c2c2c] rounded-xl text-sm text-gray-400 max-h-96 overflow-y-auto space-y-4">
+                <p class="font-bold text-white">1. Use of Service</p>
+                <p>The Wakeup AI Assistant is provided "as is" for use in improving performance, primarily during interviews. By downloading and using this software, you acknowledge that its use is at your own discretion and risk. We are not responsible for any outcomes resulting from the use of the AI-generated content or the software's real-time functionality.</p>
+
+                <p class="font-bold text-white">2. Licensing and Fair Use</p>
+                <p>The free version is strictly limited to 20 responses per 24-hour period per unique Machine ID to ensure fair access for all users and manage API costs. Any attempt to tamper with the local usage file (`wakeup_config.json`) will result in an immediate reset of the daily counter to zero remaining responses.</p>
+                <ul class="list-disc list-inside ml-4">
+                    <li>Pro licenses grant unlimited usage and bypass the daily response limit.</li>
+                    <li>Licenses are non-transferable and tied to the unique Machine ID generated upon first run.</li>
+                </ul>
+
+                <p class="font-bold text-white">3. Data Privacy</p>
+                <p>The application only sends the transcribed text to the Google Gemini API for processing. We do not store transcripts or use them for training purposes. License registration data (Name, Email, Phone, Machine ID) is stored securely for account management and license verification only.</p>
+
+                <p class="font-bold text-white">4. Warranty Disclaimer</p>
+                <p>We provide no warranty, express or implied, regarding the accuracy, completeness, or reliability of the AI-generated content or the software's compatibility with all audio devices/Windows versions. Use of NirCmd is entirely dependent on the user's system permissions.</p>
+            </div>
+        </section>
+
+        <!-- 5. CONTACT US SECTION -->
+        <section id="contact" class="py-20 border-t border-gray-800">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white section-header">Get in Touch</h2>
+            <div class="grid md:grid-cols-2 gap-10">
+                <div>
+                    <p class="text-gray-400 mb-6">Have questions about licensing, technical issues, or feature requests? Contact our support team directly.</p>
+
+                    <div class="space-y-4">
+                        <p class="flex items-center space-x-3 text-lg">
+                            <span class="text-[#4CAF50]">📧</span>
+                            <span class="font-bold">Email:</span>
+                            <a href="mailto:support@wakeupai.com" class="text-gray-300 hover:text-[#4CAF50]">support@wakeupai.com</a>
+                        </p>
+                        <p class="flex items-center space-x-3 text-lg">
+                            <span class="text-[#4CAF50]">📞</span>
+                            <span class="font-bold">Phone:</span>
+                            <span class="text-gray-300">+1 (555) 123-4567</span> (For Premium Support)
+                        </p>
+                        <p class="flex items-center space-x-3 text-lg">
+                            <span class="text-[#4CAF50]">📍</span>
+                            <span class="font-bold">Headquarters:</span>
+                            <span class="text-gray-300">San Francisco, CA, USA</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Simple Contact Form Mock -->
+                <div class="p-6 bg-[#2c2c2c] rounded-xl shadow-xl">
+                    <form onsubmit="alert('Thank you for your message! We will get back to you shortly.'); return false;" class="space-y-4">
+                        <input type="text" placeholder="Your Name" required class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:border-[#4CAF50] text-white">
+                        <input type="email" placeholder="Your Email" required class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:border-[#4CAF50] text-white">
+                        <textarea placeholder="Your Message" rows="4" required class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:border-[#4CAF50] text-white"></textarea>
+                        <button type="submit" class="w-full py-3 text-lg font-bold text-[#1a1a1a] bg-[#4CAF50] rounded-xl hover:bg-[#66BB6A] transition duration-300">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-20 py-8 border-t border-gray-800 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>&copy; 2025 Wakeup AI Assistant. All rights reserved. | <a href="#terms" class="hover:text-white">Privacy Policy</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for mobile menu toggle
+        document.getElementById('menu-button').addEventListener('click', function() {
+            var menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobile-menu a').forEach(item => {
+            item.addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
