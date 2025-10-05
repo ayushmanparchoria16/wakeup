@@ -4,134 +4,659 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wakeup AI Assistant - Overlay Interview Tool</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <style>
+        /* --- GLOBAL STYLES & RESET --- */
+        :root {
+            --color-dark-primary: #1a1a1a;
+            --color-dark-secondary: #2c2c2c;
+            --color-accent-green: #4CAF50;
+            --color-accent-gold: #FFD700;
+            --color-text-light: #ffffff;
+            --color-text-muted: #9e9e9e;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #1a1a1a;
-            color: #ffffff;
+            font-family: Arial, sans-serif;
+            background-color: var(--color-dark-primary);
+            color: var(--color-text-light);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
             scroll-behavior: smooth;
         }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* --- HEADER & NAVIGATION --- */
+        .header-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: rgba(26, 26, 26, 0.95);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            padding: 0 1rem;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--color-text-light);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            color: var(--color-accent-green);
+            font-size: 2rem;
+            margin-right: 0.5rem;
+            text-shadow: 0 0 5px var(--color-accent-green);
+        }
+
+        .desktop-menu a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            padding: 8px 12px;
+            margin-left: 1rem;
+            transition: color 0.3s;
+            border-radius: 6px;
+        }
+
+        .desktop-menu a:hover {
+            color: var(--color-accent-green);
+            background-color: var(--color-dark-secondary);
+        }
+
+        /* Mobile Menu */
+        .menu-button {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            background-color: var(--color-dark-primary);
+            padding: 1rem 0;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: var(--color-text-light);
+            text-decoration: none;
+            padding: 10px 1rem;
+            border-bottom: 1px solid var(--color-dark-secondary);
+            transition: background-color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            background-color: var(--color-dark-secondary);
+            color: var(--color-accent-green);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            padding: 80px 0 100px;
+            background-color: #0d0d0d;
+            box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-accent {
+            color: var(--color-accent-green);
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 1.1em;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 32px;
+            margin: 10px;
+            border-radius: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .cta-primary {
+            background-color: var(--color-accent-green);
+            color: var(--color-dark-primary);
+        }
+        
+        .cta-primary:hover {
+            background-color: #66BB6A;
+        }
+
+        .cta-secondary {
+            background-color: #424242;
+            color: var(--color-text-light);
+        }
+        
+        .cta-secondary:hover {
+            background-color: #555;
+        }
+
+        .caption {
+            font-size: 0.8rem;
+            color: #555;
+            margin-top: 1rem;
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            padding: 80px 0;
+            border-top: 1px solid #333;
+        }
+
         .section-header {
-            border-bottom: 2px solid #4CAF50;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--color-text-light);
+            border-bottom: 2px solid var(--color-accent-green);
             padding-bottom: 8px;
             margin-bottom: 3rem;
             display: inline-block;
         }
-        .icon {
-            filter: drop-shadow(0 0 5px #4CAF50);
+
+        /* Product Features Grid */
+        .feature-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .feature-list {
+            flex: 1 1 50%;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            background-color: var(--color-dark-secondary);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: box-shadow 0.3s;
+        }
+        
+        .feature-item:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .feature-item:nth-child(1) .feature-icon { color: var(--color-accent-gold); }
+        .feature-item:nth-child(2) .feature-icon { color: #3F51B5; } /* Accent Blue */
+        .feature-item:nth-child(3) .feature-icon { color: #E53935; } /* Accent Red */
+
+        .feature-item h3 {
+            font-size: 1.25rem;
+            margin-top: 0;
+        }
+
+        .feature-item p {
+            color: var(--color-text-muted);
+            margin: 0;
+        }
+
+        .mockup-area {
+            flex: 1 1 40%;
+            min-width: 280px;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .mockup-window {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid var(--color-accent-green);
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+            text-align: left;
+        }
+
+        .mockup-window h4 {
+            color: var(--color-accent-green);
+            font-size: 1.1rem;
+            margin: 10px 0 5px;
+        }
+
+        .mockup-window ul {
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+        }
+
+        .mockup-window li::before {
+            content: "• ";
+            color: var(--color-accent-green);
+            font-weight: bold;
+        }
+
+        .mockup-status {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        /* Pricing Grid */
+        .pricing-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .plan-card {
+            flex: 1 1 45%;
+            min-width: 300px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .plan-free {
+            background-color: var(--color-dark-secondary);
+            border: 2px solid #555;
+        }
+
+        .plan-pro {
+            background-color: var(--color-dark-primary);
+            border: 4px solid var(--color-accent-green);
+            transform: scale(1.03); /* Highlight Pro */
+        }
+
+        .plan-pro .plan-title {
+            color: var(--color-accent-green);
+        }
+
+        .plan-price {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .plan-free .plan-price { color: var(--color-accent-gold); }
+        .plan-pro .plan-price { color: var(--color-accent-green); }
+
+        .plan-price span {
+            font-size: 1rem;
+            font-weight: normal;
+            color: var(--color-text-muted);
+        }
+
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 30px;
+            color: var(--color-text-muted);
+        }
+
+        .plan-features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px dashed #333;
+        }
+
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+
+        .plan-features .icon-check { color: var(--color-accent-green); margin-right: 10px; }
+        .plan-features .icon-star { color: var(--color-accent-gold); margin-right: 10px; }
+        .plan-features .icon-x { color: #E53935; margin-right: 10px; }
+        .plan-features .feature-text { color: var(--color-text-light); font-weight: bold; }
+
+        .plan-button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .plan-free .plan-button {
+            background-color: var(--color-accent-gold);
+            color: var(--color-dark-primary);
+        }
+        
+        .plan-free .plan-button:hover { background-color: #FFE066; }
+
+        .plan-pro .plan-button {
+            background-color: var(--color-accent-green);
+            color: var(--color-text-light);
+        }
+        
+        .plan-pro .plan-button:hover { background-color: #66BB6A; }
+
+
+        /* Terms & Conditions */
+        .terms-content {
+            background-color: var(--color-dark-secondary);
+            padding: 25px;
+            border-radius: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        .terms-content h4 {
+            color: var(--color-text-light);
+            font-size: 1rem;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .terms-content p {
+            margin-bottom: 10px;
+        }
+
+        .terms-content ul {
+            list-style: disc;
+            margin: 10px 0 10px 25px;
+        }
+        
+        .terms-content ul li {
+            margin-bottom: 5px;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .contact-info {
+            flex: 1 1 45%;
+            min-width: 300px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .contact-detail span:first-child {
+            color: var(--color-accent-green);
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        .contact-detail a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+        }
+        
+        .contact-detail a:hover {
+            color: var(--color-accent-green);
+        }
+
+        .contact-form {
+            flex: 1 1 45%;
+            min-width: 300px;
+            background-color: var(--color-dark-secondary);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #555;
+            border-radius: 8px;
+            background-color: #424242;
+            color: var(--color-text-light);
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: var(--color-accent-green);
+            outline: none;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            background-color: var(--color-accent-green);
+            color: var(--color-dark-primary);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contact-form button:hover {
+            background-color: #66BB6A;
+        }
+
+
+        /* --- FOOTER --- */
+        .footer {
+            margin-top: 50px;
+            padding: 30px 0;
+            border-top: 1px solid #333;
+            background-color: #0d0d0d;
+            text-align: center;
+            color: #555;
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: #888;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        
+        .footer a:hover {
+            color: var(--color-text-light);
+        }
+
+        /* --- RESPONSIVENESS (Media Query) --- */
+        @media (max-width: 768px) {
+            .desktop-menu {
+                display: none;
+            }
+            .menu-button {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .cta-button {
+                display: block;
+                margin: 15px auto;
+            }
+            .feature-grid, .pricing-grid, .contact-grid {
+                flex-direction: column;
+            }
+            .plan-card, .feature-list, .mockup-area, .contact-info, .contact-form {
+                min-width: 100%;
+            }
+            .section-header {
+                font-size: 1.75rem;
+            }
+        }
+        
+        /* Utility for Mobile JS */
+        .hidden-mobile {
+            display: none;
         }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-[#1a1a1a] bg-opacity-95 shadow-lg backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo/Brand -->
-                <a href="#" class="flex items-center space-x-2">
-                    <span class="text-3xl text-[#4CAF50] font-extrabold icon">🤖</span>
-                    <span class="text-xl font-bold text-white">Wakeup AI</span>
-                </a>
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-8">
-                    <a href="#product" class="text-gray-300 hover:text-[#4CAF50] px-3 py-2 text-sm font-medium transition duration-150 rounded-lg">Product</a>
-                    <a href="#pricing" class="text-gray-300 hover:text-[#4CAF50] px-3 py-2 text-sm font-medium transition duration-150 rounded-lg">Pricing</a>
-                    <a href="#download" class="text-gray-300 hover:text-[#4CAF50] px-3 py-2 text-sm font-medium transition duration-150 rounded-lg">Download</a>
-                    <a href="#terms" class="text-gray-300 hover:text-[#4CAF50] px-3 py-2 text-sm font-medium transition duration-150 rounded-lg">T&C</a>
-                    <a href="#contact" class="text-gray-300 hover:text-[#4CAF50] px-3 py-2 text-sm font-medium transition duration-150 rounded-lg">Contact</a>
-                </div>
-                <!-- Mobile Menu Button -->
-                <button id="menu-button" class="md:hidden text-gray-300 hover:text-white focus:outline-none" aria-label="Toggle Menu">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
+    <nav class="header-nav">
+        <div class="container navbar">
+            <a href="#" class="logo">
+                <span class="logo-icon">🤖</span>
+                <span>Wakeup AI</span>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="desktop-menu">
+                <a href="#product">Product</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#download">Download</a>
+                <a href="#terms">T&C</a>
+                <a href="#contact">Contact</a>
             </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-button" class="menu-button" aria-label="Toggle Menu">☰</button>
         </div>
-        <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-[#1a1a1a] pb-3 px-2 pt-2 space-y-1 sm:px-3">
-            <a href="#product" class="text-gray-300 hover:text-[#4CAF50] block px-3 py-2 rounded-lg text-base font-medium">Product</a>
-            <a href="#pricing" class="text-gray-300 hover:text-[#4CAF50] block px-3 py-2 rounded-lg text-base font-medium">Pricing</a>
-            <a href="#download" class="text-gray-300 hover:text-[#4CAF50] block px-3 py-2 rounded-lg text-base font-medium">Download</a>
-            <a href="#terms" class="text-gray-300 hover:text-[#4CAF50] block px-3 py-2 rounded-lg text-base font-medium">T&C</a>
-            <a href="#contact" class="text-gray-300 hover:text-[#4CAF50] block px-3 py-2 rounded-lg text-base font-medium">Contact</a>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu hidden-mobile">
+            <a href="#product">Product</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#download">Download</a>
+            <a href="#terms">T&C</a>
+            <a href="#contact">Contact</a>
         </div>
     </nav>
 
     <!-- 1. HERO / DOWNLOAD SECTION -->
-    <header id="download" class="pt-20 pb-20 sm:pt-32 sm:pb-32 text-center bg-gray-900 shadow-2xl">
-        <div class="max-w-5xl mx-auto px-4">
-            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-4">
-                <span class="text-white">Conquer Your Interview with</span> 
-                <span class="text-[#4CAF50] block mt-2">Wakeup AI Assistant</span>
+    <header id="download" class="hero">
+        <div class="container">
+            <h1>
+                Conquer Your Interview with
+                <span class="hero-accent">Wakeup AI Assistant</span>
             </h1>
-            <p class="text-xl sm:text-2xl text-gray-400 mb-10 max-w-3xl mx-auto">
+            <p>
                 Real-time AI assistance as a discreet overlay. Get concise, expert answers instantly without breaking eye contact.
             </p>
-            <div class="space-y-4 sm:space-y-0 sm:space-x-6">
+            <div class="cta-group">
                 <!-- Main Download CTA -->
-                <a href="#" class="inline-block py-3 px-8 text-lg font-bold text-[#1a1a1a] bg-[#4CAF50] rounded-xl shadow-lg hover:bg-[#66BB6A] transition duration-300 transform hover:scale-105 active:scale-95">
+                <a href="#" class="cta-button cta-primary">
                     ⬇️ Download Now (Windows)
                 </a>
                 <!-- Watch Demo Button -->
-                <a href="#product" class="inline-block py-3 px-8 text-lg font-medium text-white bg-gray-700 rounded-xl shadow-lg hover:bg-gray-600 transition duration-300 transform hover:scale-105 active:scale-95">
+                <a href="#product" class="cta-button cta-secondary">
                     Learn How It Works
                 </a>
             </div>
-            <p class="text-sm text-gray-500 mt-6">Requires Windows OS and Python environment.</p>
+            <p class="caption">Requires Windows OS and Python environment.</p>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main class="container">
 
         <!-- 2. PRODUCT DETAIL / FEATURES SECTION -->
-        <section id="product" class="py-20">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-white section-header">Product Details & Features</h2>
+        <section id="product">
+            <h2 class="section-header">Product Details & Features</h2>
             
-            <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="feature-grid">
                 <!-- Feature List -->
-                <div class="space-y-8">
+                <div class="feature-list">
                     <!-- Feature 1 -->
-                    <div class="flex items-start space-x-4 p-4 bg-[#2c2c2c] rounded-xl shadow-xl hover:shadow-2xl transition duration-300">
-                        <span class="text-3xl text-[#FFD700] flex-shrink-0">🎙️</span>
+                    <div class="feature-item">
+                        <span class="feature-icon">🎙️</span>
                         <div>
-                            <h3 class="text-xl font-bold text-white mb-1">Real-Time Transcription</h3>
-                            <p class="text-gray-400">Captures the interviewer's voice from 'Stereo Mix' or your mic, providing a continuous, editable question stream. Never miss a word.</p>
+                            <h3>Real-Time Transcription</h3>
+                            <p>Captures the interviewer's voice from 'Stereo Mix' or your mic, providing a continuous, editable question stream. Never miss a word.</p>
                         </div>
                     </div>
                     <!-- Feature 2 -->
-                    <div class="flex items-start space-x-4 p-4 bg-[#2c2c2c] rounded-xl shadow-xl hover:shadow-2xl transition duration-300">
-                        <span class="text-3xl text-[#3F51B5] flex-shrink-0">💬</span>
+                    <div class="feature-item">
+                        <span class="feature-icon">💬</span>
                         <div>
-                            <h3 class="text-xl font-bold text-white mb-1">Dual-Tier AI Answers (Gemini)</h3>
-                            <p class="text-gray-400">Trigger **Standard** (Enter/Tab) for short points, or **Detailed** (Ctrl+Enter) for comprehensive explanations on the same topic.</p>
+                            <h3>Dual-Tier AI Answers (Gemini)</h3>
+                            <p>Trigger **Standard** (Enter/Tab) for short points, or **Detailed** (Ctrl+Enter) for comprehensive explanations on the same topic.</p>
                         </div>
                     </div>
                     <!-- Feature 3 -->
-                    <div class="flex items-start space-x-4 p-4 bg-[#2c2c2c] rounded-xl shadow-xl hover:shadow-2xl transition duration-300">
-                        <span class="text-3xl text-[#E53935] flex-shrink-0">🌁</span>
+                    <div class="feature-item">
+                        <span class="feature-icon">🌁</span>
                         <div>
-                            <h3 class="text-xl font-bold text-white mb-1">Discreet Overlay & Hotkeys</h3>
-                            <p class="text-gray-400">Adjust window transparency or instantly **Hide/Restore (F1)**. Quickly **Toggle Audio Input (F2)** between your mic and system audio for clean interviewer capture.</p>
+                            <h3>Discreet Overlay & Hotkeys</h3>
+                            <p>Adjust window transparency or instantly **Hide/Restore (F1)**. Quickly **Toggle Audio Input (F2)** between your mic and system audio for clean interviewer capture.</p>
                         </div>
                     </div>
                 </div>
                 <!-- Mock Screenshot/Diagram -->
-                <div class="p-6 bg-gray-800 rounded-2xl shadow-inner max-w-lg mx-auto">
-                    <!-- Placeholder for a stylized, transparent window image -->
-                    <div class="text-center">
-                        <div class="relative bg-black bg-opacity-50 p-6 rounded-xl border border-[#4CAF50] shadow-2xl shadow-[#4CAF50]/40">
-                            <p class="text-gray-200 text-sm italic">Overlay View</p>
-                            <p class="mt-4 text-left text-lg font-semibold text-[#4CAF50]">Q: What is the difference between a process and a thread?</p>
-                            <ul class="mt-2 text-left text-sm space-y-1 text-white">
-                                <li>• Process: Independent program instance with its own memory space.</li>
-                                <li>• Thread: Smallest unit of CPU execution, sharing the parent process's memory.</li>
-                                <li>• Context: Switching processes is heavy; switching threads is light.</li>
-                            </ul>
-                            <div class="mt-4 text-xs text-right text-gray-500">
-                                🔑 Free Responses Left: 18/20
-                            </div>
+                <div class="mockup-area">
+                    <div class="mockup-window">
+                        <p style="color: #ccc; font-style: italic; font-size: 0.9rem;">Overlay View</p>
+                        <h4>Q: What is the difference between a process and a thread?</h4>
+                        <ul>
+                            <li>Process: Independent program instance with its own memory space.</li>
+                            <li>Thread: Smallest unit of CPU execution, sharing the parent process's memory.</li>
+                            <li>Context: Switching processes is heavy; switching threads is light.</li>
+                        </ul>
+                        <div class="mockup-status">
+                            🔑 Free Responses Left: 18/20
                         </div>
                     </div>
                 </div>
@@ -139,51 +664,51 @@
         </section>
 
         <!-- 3. PRICING SECTION -->
-        <section id="pricing" class="py-20 border-t border-gray-800">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-white section-header">Pricing Plans</h2>
+        <section id="pricing">
+            <h2 class="section-header">Pricing Plans</h2>
             
-            <div class="grid md:grid-cols-2 gap-10">
+            <div class="pricing-grid">
                 
                 <!-- Free Tier -->
-                <div class="bg-[#2c2c2c] p-8 rounded-2xl shadow-2xl border-2 border-gray-700 transition duration-300 hover:border-[#FFD700]">
-                    <h3 class="text-2xl font-bold text-white mb-2">Free Trial</h3>
-                    <p class="text-gray-400 mb-6">Test the core features and AI performance during your preparation.</p>
+                <div class="plan-card plan-free">
+                    <h3 class="plan-title" style="color: var(--color-text-light);">Free Trial</h3>
+                    <p style="color: var(--color-text-muted);">Test the core features and AI performance during your preparation.</p>
                     
-                    <p class="text-4xl font-extrabold text-[#FFD700] mb-8">
-                        $0<span class="text-lg font-medium text-gray-400">/day</span>
+                    <p class="plan-price">
+                        $0<span>/day</span>
                     </p>
                     
-                    <ul class="space-y-3 text-gray-300">
-                        <li class="flex items-center space-x-2">✅ <span class="font-bold text-white">20 Responses</span> per day (Limit from app)</li>
-                        <li class="flex items-center space-x-2">✅ Standard and Detailed Answers</li>
-                        <li class="flex items-center space-x-2">✅ Basic Overlay Controls (F1/F2)</li>
-                        <li class="flex items-center space-x-2">❌ Occasional Licensing Checks</li>
-                        <li class="flex items-center space-x-2">❌ No Priority Support</li>
+                    <ul class="plan-features">
+                        <li><span class="icon-check">✅</span> <span class="feature-text">20 Responses</span> per day (Limit from app)</li>
+                        <li><span class="icon-check">✅</span> Standard and Detailed Answers</li>
+                        <li><span class="icon-check">✅</span> Basic Overlay Controls (F1/F2)</li>
+                        <li><span class="icon-x">❌</span> Occasional Licensing Checks</li>
+                        <li><span class="icon-x">❌</span> No Priority Support</li>
                     </ul>
                     
-                    <a href="#download" class="mt-10 block w-full text-center py-3 text-lg font-bold text-[#1a1a1a] bg-[#FFD700] rounded-xl hover:bg-[#FFE066] transition duration-300">
+                    <a href="#download" class="plan-button">
                         Start Free
                     </a>
                 </div>
                 
                 <!-- Pro Tier -->
-                <div class="bg-[#1a1a1a] p-8 rounded-2xl shadow-2xl border-4 border-[#4CAF50] transform scale-105">
-                    <h3 class="text-2xl font-bold text-[#4CAF50] mb-2">Pro License</h3>
-                    <p class="text-gray-400 mb-6">Unleash uninterrupted performance for the most critical interviews.</p>
+                <div class="plan-card plan-pro">
+                    <h3 class="plan-title">Pro License</h3>
+                    <p style="color: var(--color-text-muted);">Unleash uninterrupted performance for the most critical interviews.</p>
                     
-                    <p class="text-4xl font-extrabold text-[#4CAF50] mb-8">
-                        $XX<span class="text-lg font-medium text-gray-400">/month</span>
+                    <p class="plan-price">
+                        $XX<span>/month</span>
                     </p>
                     
-                    <ul class="space-y-3 text-gray-300">
-                        <li class="flex items-center space-x-2">⭐ <span class="font-bold text-white">Unlimited</span> Responses, Anytime</li>
-                        <li class="flex items-center space-x-2">⭐ Maximum AI Model Speed (Lower Latency)</li>
-                        <li class="flex items-center space-x-2">⭐ Max Readability (100% Opacity Toggle)</li>
-                        <li class="flex items-center space-x-2">⭐ Minimal Server Checks</li>
-                        <li class="flex items-center space-x-2">⭐ Priority Email Support</li>
+                    <ul class="plan-features">
+                        <li><span class="icon-star">⭐</span> <span class="feature-text">Unlimited</span> Responses, Anytime</li>
+                        <li><span class="icon-star">⭐</span> Maximum AI Model Speed (Lower Latency)</li>
+                        <li><span class="icon-star">⭐</span> Max Readability (100% Opacity Toggle)</li>
+                        <li><span class="icon-star">⭐</span> Minimal Server Checks</li>
+                        <li><span class="icon-star">⭐</span> Priority Email Support</li>
                     </ul>
                     
-                    <a href="#contact" class="mt-10 block w-full text-center py-3 text-lg font-bold text-white bg-[#4CAF50] rounded-xl hover:bg-[#66BB6A] transition duration-300">
+                    <a href="#contact" class="plan-button">
                         Activate Pro License
                     </a>
                 </div>
@@ -192,60 +717,58 @@
         </section>
 
         <!-- 4. TERMS AND CONDITIONS (T&C) SECTION -->
-        <section id="terms" class="py-20 border-t border-gray-800">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-white section-header">Terms & Conditions (T&C)</h2>
-            <div class="p-6 bg-[#2c2c2c] rounded-xl text-sm text-gray-400 max-h-96 overflow-y-auto space-y-4">
-                <p class="font-bold text-white">1. Use of Service</p>
+        <section id="terms">
+            <h2 class="section-header">Terms & Conditions (T&C)</h2>
+            <div class="terms-content">
+                <h4>1. Use of Service</h4>
                 <p>The Wakeup AI Assistant is provided "as is" for use in improving performance, primarily during interviews. By downloading and using this software, you acknowledge that its use is at your own discretion and risk. We are not responsible for any outcomes resulting from the use of the AI-generated content or the software's real-time functionality.</p>
 
-                <p class="font-bold text-white">2. Licensing and Fair Use</p>
-                <p>The free version is strictly limited to 20 responses per 24-hour period per unique Machine ID to ensure fair access for all users and manage API costs. Any attempt to tamper with the local usage file (`wakeup_config.json`) will result in an immediate reset of the daily counter to zero remaining responses.</p>
-                <ul class="list-disc list-inside ml-4">
+                <h4>2. Licensing and Fair Use</h4>
+                <p>The free version is strictly limited to 20 responses per 24-hour period per unique Machine ID to ensure fair access for all users and manage API costs. Any attempt to tamper with the local usage file (<code>wakeup_config.json</code>) will result in an immediate reset of the daily counter to zero remaining responses.</p>
+                <ul>
                     <li>Pro licenses grant unlimited usage and bypass the daily response limit.</li>
                     <li>Licenses are non-transferable and tied to the unique Machine ID generated upon first run.</li>
                 </ul>
 
-                <p class="font-bold text-white">3. Data Privacy</p>
+                <h4>3. Data Privacy</h4>
                 <p>The application only sends the transcribed text to the Google Gemini API for processing. We do not store transcripts or use them for training purposes. License registration data (Name, Email, Phone, Machine ID) is stored securely for account management and license verification only.</p>
 
-                <p class="font-bold text-white">4. Warranty Disclaimer</p>
+                <h4>4. Warranty Disclaimer</h4>
                 <p>We provide no warranty, express or implied, regarding the accuracy, completeness, or reliability of the AI-generated content or the software's compatibility with all audio devices/Windows versions. Use of NirCmd is entirely dependent on the user's system permissions.</p>
             </div>
         </section>
 
         <!-- 5. CONTACT US SECTION -->
-        <section id="contact" class="py-20 border-t border-gray-800">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-white section-header">Get in Touch</h2>
-            <div class="grid md:grid-cols-2 gap-10">
-                <div>
-                    <p class="text-gray-400 mb-6">Have questions about licensing, technical issues, or feature requests? Contact our support team directly.</p>
+        <section id="contact">
+            <h2 class="section-header">Get in Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <p style="color: var(--color-text-muted); margin-bottom: 20px;">Have questions about licensing, technical issues, or feature requests? Contact our support team directly.</p>
 
-                    <div class="space-y-4">
-                        <p class="flex items-center space-x-3 text-lg">
-                            <span class="text-[#4CAF50]">📧</span>
-                            <span class="font-bold">Email:</span>
-                            <a href="mailto:support@wakeupai.com" class="text-gray-300 hover:text-[#4CAF50]">support@wakeupai.com</a>
-                        </p>
-                        <p class="flex items-center space-x-3 text-lg">
-                            <span class="text-[#4CAF50]">📞</span>
-                            <span class="font-bold">Phone:</span>
-                            <span class="text-gray-300">+1 (555) 123-4567</span> (For Premium Support)
-                        </p>
-                        <p class="flex items-center space-x-3 text-lg">
-                            <span class="text-[#4CAF50]">📍</span>
-                            <span class="font-bold">Headquarters:</span>
-                            <span class="text-gray-300">San Francisco, CA, USA</span>
-                        </p>
+                    <div class="contact-detail">
+                        <span>📧</span>
+                        <span style="font-weight: bold; margin-right: 5px;">Email:</span>
+                        <a href="mailto:support@wakeupai.com">support@wakeupai.com</a>
+                    </div>
+                    <div class="contact-detail">
+                        <span>📞</span>
+                        <span style="font-weight: bold; margin-right: 5px;">Phone:</span>
+                        <span style="color: var(--color-text-muted);">+1 (555) 123-4567</span> (For Premium Support)
+                    </div>
+                    <div class="contact-detail">
+                        <span>📍</span>
+                        <span style="font-weight: bold; margin-right: 5px;">Headquarters:</span>
+                        <span style="color: var(--color-text-muted);">San Francisco, CA, USA</span>
                     </div>
                 </div>
 
                 <!-- Simple Contact Form Mock -->
-                <div class="p-6 bg-[#2c2c2c] rounded-xl shadow-xl">
-                    <form onsubmit="alert('Thank you for your message! We will get back to you shortly.'); return false;" class="space-y-4">
-                        <input type="text" placeholder="Your Name" required class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:border-[#4CAF50] text-white">
-                        <input type="email" placeholder="Your Email" required class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:border-[#4CAF50] text-white">
-                        <textarea placeholder="Your Message" rows="4" required class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:border-[#4CAF50] text-white"></textarea>
-                        <button type="submit" class="w-full py-3 text-lg font-bold text-[#1a1a1a] bg-[#4CAF50] rounded-xl hover:bg-[#66BB6A] transition duration-300">
+                <div class="contact-form">
+                    <form onsubmit="alert('Thank you for your message! We will get back to you shortly.'); return false;">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <textarea placeholder="Your Message" rows="4" required></textarea>
+                        <button type="submit">
                             Send Message
                         </button>
                     </form>
@@ -256,23 +779,24 @@
     </main>
 
     <!-- Footer -->
-    <footer class="mt-20 py-8 border-t border-gray-800 bg-gray-900">
-        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
-            <p>&copy; 2025 Wakeup AI Assistant. All rights reserved. | <a href="#terms" class="hover:text-white">Privacy Policy</a></p>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Wakeup AI Assistant. All rights reserved. | <a href="#terms">Privacy Policy</a></p>
         </div>
     </footer>
 
+    <!-- JavaScript for mobile menu toggle -->
     <script>
-        // JavaScript for mobile menu toggle
         document.getElementById('menu-button').addEventListener('click', function() {
             var menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            // Toggle the custom CSS class for hiding/showing the menu
+            menu.classList.toggle('hidden-mobile');
         });
 
         // Close mobile menu when a link is clicked
         document.querySelectorAll('#mobile-menu a').forEach(item => {
             item.addEventListener('click', function() {
-                document.getElementById('mobile-menu').classList.add('hidden');
+                document.getElementById('mobile-menu').classList.add('hidden-mobile');
             });
         });
     </script>
